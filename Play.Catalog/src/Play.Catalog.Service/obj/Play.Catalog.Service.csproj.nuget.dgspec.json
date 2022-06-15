@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "F:\\Projetos\\PlayProject\\packages": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://p2cr.pkgs.visualstudio.com/f360_libs/_packaging/f360nuget/nuget/v3/index.json": {}
         },
@@ -41,9 +42,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "MongoDB.Driver": {
+            "Play.Common": {
               "target": "Package",
-              "version": "[2.15.1, )"
+              "version": "[1.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
