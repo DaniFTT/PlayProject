@@ -1,3 +1,5 @@
+using MassTransit;
+using MassTransit.Definition;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -5,12 +7,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Play.Catalog.Service.Entitites;
+using Play.Common.MassTransit;
 using Play.Common.MongoDB;
+using Play.Common.Settings;
 
 namespace Play.Catalog.Service
 {
     public class Startup
     {
+        private ServiceSettings serviceSettings;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -21,7 +27,11 @@ namespace Play.Catalog.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMongo().AddMongoRepository<Item>("items");
+            serviceSettings = Configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
+
+            services.AddMongo()
+                    .AddMongoRepository<Item>("items")
+                    .AddMassTransitWithRabbitMq();
 
             services.AddControllers(options =>
             {
@@ -41,6 +51,13 @@ namespace Play.Catalog.Service
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Play.Catalog.Service v1"));
+
+                app.UseCors(builder =>
+                {
+                    builder.WithOrigins(new string[] { "http://localhost:3000", "http://192.168.1.2:3000" })
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
             }
 
             app.UseHttpsRedirection();

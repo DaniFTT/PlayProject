@@ -5,7 +5,7 @@
   },
   "projects": {
     "F:\\Projetos\\PlayProject\\Play.Common\\src\\Play.Common\\Play.Common.csproj": {
-      "version": "1.0.0",
+      "version": "1.0.2",
       "restore": {
         "projectUniqueName": "F:\\Projetos\\PlayProject\\Play.Common\\src\\Play.Common\\Play.Common.csproj",
         "projectName": "Play.Common",
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "F:\\Projetos\\PlayProject\\packages": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://p2cr.pkgs.visualstudio.com/f360_libs/_packaging/f360nuget/nuget/v3/index.json": {}
         },
@@ -41,6 +42,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "MassTransit.AspNetCore": {
+              "target": "Package",
+              "version": "[7.1.4, )"
+            },
+            "MassTransit.RabbitMQ": {
+              "target": "Package",
+              "version": "[7.1.4, )"
+            },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
               "version": "[5.0.0, )"
